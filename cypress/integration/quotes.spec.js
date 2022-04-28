@@ -56,12 +56,26 @@ describe("Quotes App", () => {
         .type("CASEY")
         .should("have.value", "CASEY");
     })
+
+    it("the submit button enables when both inputs are filled out", () => {
+      authorInput().type("Casey");
+      textInput().type("FUN");
+      submitBtn().should("not.be.disabled");
+    })
+
+    it("the cancel button can reset the inputs and disable the submit button", () => {
+      authorInput().type("Casey");
+      textInput().type("Lorem");
+      cancelBtn().click();
+      textInput().should("have.value", "");
+      authorInput().should("have.value", "");
+      submitBtn().should("be.disabled");
+    })
   })
 
-
-
-
-
-
-
+  describe("Adding a new quote", () => {
+    it("can submit and delete a new quote", () => {
+      
+    })
+  })
 })
