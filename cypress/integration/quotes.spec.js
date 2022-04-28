@@ -75,7 +75,21 @@ describe("Quotes App", () => {
 
   describe("Adding a new quote", () => {
     it("can submit and delete a new quote", () => {
-      
+      textInput().type("Web54 ROCKS!");
+      authorInput().type("CRHarding");
+      submitBtn().click();
+
+      cy.contains("Web54 ROCKS!").siblings("button:nth-of-type(2)").click();
+      cy.contains("Web54 ROCKS!").should("not.exist");
+    })
+
+    it("variation of can submit a new quote", () => {
+      textInput().type("woohoo!");
+      authorInput().type("CRHarding");
+      submitBtn().click();
+      cy.contains("woohoo!").should("exist");
+      cy.contains("woohoo!").next().next().click();
+      cy.contains("woohoo!").should("not.exist");
     })
   })
 })
