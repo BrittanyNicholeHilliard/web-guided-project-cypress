@@ -38,7 +38,24 @@ describe("Quotes App", () => {
   })
 
   describe("Filling out the inputs and cancelling", () => {
-    
+    it("can navigate to the site", () => {
+      cy.url().should("include", "localhost");
+    })
+
+    it("submit button starts out disabled", () => {
+      submitBtn().should("be.disabled");
+    })
+
+    it("can type in the inputs", () => {
+      textInput()
+        .should("have.value", "")
+        .type("lorem ipsum")
+        .should("have.value", "lorem ipsum");
+      authorInput()
+        .should("have.value", "")
+        .type("CASEY")
+        .should("have.value", "CASEY");
+    })
   })
 
 
