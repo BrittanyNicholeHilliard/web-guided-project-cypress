@@ -1,3 +1,5 @@
+import { contentType } from "express/lib/response";
+
 // write tests here
 describe('Quotes App', () => {
     beforeEach(() =>  {
@@ -56,27 +58,42 @@ describe('Quotes App', () => {
                 .should('have.value', 'Brittany');
             })
         
+            it('submitbtn enables when both inputs are filled out', () => {
+                authorInput().type('Brittany');
+                textInput().type('FUN');
+                submitBtn().should('not.be.disabled');
+            })
 
+            it('the cancel button can reset the inputs and disabled the submit button', () =>{
+                authorInput().type("Brittany");
+                textInput().type('lorem');
+                cancelBtn().click();
+                textInput().should('have.value', '');
+                authorInput().should('have.value', '');
+            })
         })
 
+    describe('adding a new quote', () => {
+        it('can submit and delete a new quote', () => {
+           textInput().type('web 54 rocks');
+           authorInput().type('CRHARDING');
+           submitBtn().click();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+           cy.contains('web 54 rocks').siblings("button:nth-of-type(2)").click();
+           cy.contains('web 54 rocks').should('not.exist')
+        })
+    
+    it('variation of can submit a new quote', () => {
+        textInput().type('woohoo!');
+        authorInput.type("bhilliard");
+        submitBtn.click();
+        cy.contains('woohoo!').should('exist');
+        cy.contains('woohoo!').next().next().click();
+        cy.contains('woohoo!').should('not.exist');
+    })
+    
+    
+    })
 
 
 
